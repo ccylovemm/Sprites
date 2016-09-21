@@ -2,8 +2,9 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class StartLoading : MonoBehaviour {
 
+public class Startup : MonoBehaviour {
+	
 	void Start () 
 	{
 		StartCoroutine (LoadScene());
@@ -11,7 +12,7 @@ public class StartLoading : MonoBehaviour {
 
 	IEnumerator LoadScene()
 	{
-		WWW www = new WWW (StaticConfig.basePath + "Scenes/Loading.unity3d");
+		WWW www = new WWW (StaticConfig.basePath + "Scenes/BootAnimation.unity3d");
 		yield return www;
 		AssetBundle bundle = www.assetBundle;
 		SceneManager.LoadSceneAsync ("Loading");

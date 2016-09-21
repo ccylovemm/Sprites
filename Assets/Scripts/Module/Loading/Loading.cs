@@ -22,7 +22,6 @@ public class Loading : Singleton<Loading> {
 
 	void Start()
 	{
-		return;
 		Invoke("CheckVersion" , 0.1f);
 	}
 
