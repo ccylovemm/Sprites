@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class AssetBundleManager
 {
@@ -15,54 +16,20 @@ public class AssetBundleManager
             string.Empty;
 #endif
 
-    /*
-    public static IEnumerator LoadAssetBundle(string path)
+    public static IEnumerator LoadSceneAsync(string sceneName)
     {
-
-        WWW bundle = new WWW(basePath + path);
-        yield return bundle;
-        bundle.assetBundle.Load("fdf");
-
-        //var allObjectvol = bundle.        .LoadAll();
-        //yield return Instantiate(bundle.assetBundle.mainAsset);
-        //bundle.assetBundle.Unload(false);
+       	WWW www = new WWW (basePath + "Scenes/" + sceneName + ".unity3d");
+		yield return www;
+        SceneManager.LoadSceneAsync("sceneName");     
+	    www.assetBundle.Unload (false);
+		www.Dispose ();
     }
 
-    public static IEnumerator LoadSceneAsync(string path)
+    public static IEnumerator LoadAssetBundleAsync(string assetName)
     {
-        WWW www = new WWW(AssetBundleManager.basePath + path + ".unity3d");
-        Debug.Log(AssetBundleManager.basePath + path + ".unity3d");
+        WWW www = new WWW(basePath + assetName + ".unity3d");
         yield return www;
-        Debug.Log(www == null);
-        var ab = www.assetBundle;
-        Debug.Log(ab == null);
-        string[] arr = path.Split('/');
-        string sceneName = arr[arr.Length - 1];
-        Application.LoadLevel(sceneName);
-        Logger.Log("Loading " + path);
-        //ab.Unload(false);
-        //ab = null;
+        www.assetBundle.Unload(false);
+        www= null;
     }
-
-    public static IEnumerator LoadSceneAsync(IObserver<AsyncOperation> observer, string path)
-    {
-        WWW www = new WWW(AssetBundleManager.basePath + path + ".unity3d");
-        yield return www;
-        var ab = www.assetBundle;
-        string[] arr = path.Split('/');
-        string sceneName = arr[arr.Length - 1];
-        AsyncOperation ao = Application.LoadLevelAsync(sceneName);
-        while (!ao.isDone)
-        {
-            observer.OnNext(ao);
-            yield return new WaitForEndOfFrame();
-        }
-        ab.Unload(false);
-        //ab = null;
-        //www.Dispose();
-        //www = null;
-        observer.OnNext(ao);
-        observer.OnCompleted();
-    }
-    */
 }

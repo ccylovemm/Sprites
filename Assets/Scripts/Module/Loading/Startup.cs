@@ -15,7 +15,7 @@ public class Startup : MonoBehaviour {
 		WWW www = new WWW (StaticConfig.basePath + "Scenes/BootAnimation.unity3d");
 		yield return www;
 		AssetBundle bundle = www.assetBundle;
-		SceneManager.LoadSceneAsync ("Loading");
+        SceneManager.LoadSceneAsync("BootAnimation");
 		bundle.Unload (false);
 		www.Dispose ();
 	}
