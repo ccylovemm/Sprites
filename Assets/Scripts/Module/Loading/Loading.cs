@@ -11,7 +11,6 @@ public class Loading : Singleton<Loading> {
 	public UILabel progressValue;
 	public UISlider progressBar;
 
-	private WWW wwwLoad;
 	private AsyncOperation asyncOperation;
 
 	private string[] strDesc = new string[]
@@ -38,15 +37,16 @@ public class Loading : Singleton<Loading> {
 
 	void Update()
 	{
-		if (wwwLoad != null && !wwwLoad.isDone) {	
-			UpdateValue (wwwLoad.progress / 2.0f);
-		}
-		if (wwwLoad != null && wwwLoad.isDone && asyncOperation != null && !asyncOperation.isDone) {
-			UpdateValue (asyncOperation.progress / 2.0f + 0.5f);
-		}
-		if(asyncOperation != null && asyncOperation.isDone)
-		{
-			UpdateValue (1.0f);
+		if (asyncOperation != null && !asyncOperation.isDone) 
+        {
+            if (!asyncOperation.isDone)
+            {
+                UpdateValue(asyncOperation.progress);
+            }
+            else
+            {
+                UpdateValue(1.0f);
+            }
 		}
 	}
 
@@ -58,16 +58,15 @@ public class Loading : Singleton<Loading> {
 	IEnumerator StartLoadScene(string sceneName)
 	{
 		Reset();
-		if (wwwLoad != null)
-			wwwLoad.Dispose ();
-		wwwLoad = new WWW (StaticConfig.basePath + sceneName + ".unity3d");
-		yield return wwwLoad;
+		WWW www = new WWW (StaticConfig.basePath + sceneName + ".unity3d");
+        yield return www;
 		asyncOperation = SceneManager.LoadSceneAsync (sceneName);
+        www.assetBundle.Unload(false);
+        www.Dispose();
+        www = null;
 		yield return asyncOperation;
-		Close ();
-		wwwLoad.Dispose ();
-		wwwLoad = null;
 		asyncOperation = null;
+        Close();
 	}
 
 	public void UpdateValue(float value , string desc = "")

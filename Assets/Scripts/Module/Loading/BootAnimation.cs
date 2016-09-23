@@ -18,5 +18,6 @@ public class BootAnimation : MonoBehaviour {
 		SceneManager.LoadSceneAsync ("Loading");
 		bundle.Unload (false);
 		www.Dispose ();
+        www = null;
 	}
 }

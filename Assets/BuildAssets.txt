@@ -1,2 +1,4 @@
 1|Loading.unity3d|Assets/Scenes/Loading.unity
-1|Demo1.unity3d|Assets/Resources_/Map/Demo/Demo1.unity
+1|Login.unity3d|Assets/Scenes/Login.unity
+1|MainScene.unity3d|Assets/Scenes/MainScene.unity
+1|BootAnimation.unity3d|Assets/Scenes/BootAnimation.unity
